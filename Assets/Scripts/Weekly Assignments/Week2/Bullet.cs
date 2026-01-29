@@ -3,33 +3,33 @@ using UnityEngine;
 
 public class Bullet : ProjectileBase
 {
-    public int damage = 4;
-    public Rigidbody rb;
-    private int speed = 7;
-    protected int range = 12;
-    private string name;    
-
-    protected override void ProjectileName()
+    void Start()
     {
-        string name = "Bullet";
+        damage = 9;
+        SetSpeed(8);
+        range = 15;
+        lifetime = 10;
+        isPiercing = true;        
     }
 
-    public override void ProjectileUsed()
+    void ProjectileLifeCycle()
     {
-        Console.WriteLine("Player used", name, "for", damage);
+        CallDestroyProjectile();
     }
 
-    public void Update()
+    public void DebugStats()
     {
-        if (range >= 0)
-        {
-            ProjectileForce();
-            DealDamage();
-            DamageDealt();
-        }
+        DebugDamage();
+        DebugSpeed();
     }
 
-
-
+    public override void AttachedObject()
+    {
+        Console.WriteLine("This is attached to a Bullet");
+    }
+    public override void DebugPiercing()
+    {
+        Console.WriteLine("This Bullet does have Piercing");
+    }
 
 }

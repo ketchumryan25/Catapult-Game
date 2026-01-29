@@ -3,33 +3,33 @@ using UnityEngine;
 
 public class Dart : ProjectileBase
 {
-    public int damage = 1;
-    public Rigidbody rb;
-    private int speed = 3;
-    protected int range = 4;
-    private string name;    
-
-    protected override void ProjectileName()
+    void Start()
     {
-        string name = "Dart";
+        damage = 2;
+        SetSpeed(2);
+        range = 5;
+        lifetime = 3;
+        isPiercing = false;          
     }
 
-    public override void ProjectileUsed()
+    void ProjectileLifeCycle()
     {
-        Console.WriteLine("Player used", name, "for", damage);
+        CallDestroyProjectile();
     }
 
-    public void Update()
+    public void DebugStats()
     {
-        if (range >= 0)
-        {
-            ProjectileForce();
-            DealDamage();
-            DamageDealt();
-        }
+        DebugDamage();
+        DebugSpeed();
     }
 
-
-
+    public override void AttachedObject()
+    {
+        Console.WriteLine("This is attached to a Dart");
+    }
+    public override void DebugPiercing()
+    {
+        Console.WriteLine("This Dart does not have Piercing");
+    }
 
 }
