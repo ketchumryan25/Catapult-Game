@@ -4,38 +4,49 @@ using UnityEngine;
 public abstract class ProjectileBase : MonoBehaviour
 {
     public int damage = 0;
-    public Rigidbody rb;
-    private int speed = 3;
-    protected int range = 2;
-    protected int playerHealth = 20;
+    public bool isPiercing = false;
+    private int speed = 0;
+    protected int range = 0;
+    protected int lifetime = 1;
+    protected GameObject thisObject;
 
+    private void DestroyProjectile()
+    {
+        Destroy(thisObject, lifetime);
+    }
     
-
-    public int DealDamage()
+    public void CallDestroyProjectile()
     {
-        return playerHealth -= damage;
+        DestroyProjectile();
     }
 
-    private void DamageDealt()
+    public void SetSpeed(int newSpeed)
     {
-        int result = DealDamage();
-        Console.WriteLine("Player Dealt", result);
+        speed = newSpeed;
     }
 
-    protected void ProjectileForce()
+    public void DebugSpeed()
     {
-        rb.AddForce(Vector3.forward * range, ForceMode.Force);
-        rb.velocity = transform.forward * speed;
-    } 
-
-    protected abstract void ProjectileName();
-
-    public virtual void ProjectileUsed()    
+        Console.WriteLine("The Speed of this Projectile is" + speed);
+    }
+    
+    protected void DebugDamage()
     {
-        Console.WriteLine("Player used nothing for", damage);
+        Console.WriteLine("The Speed of this Projectile is" + damage);
     }
 
+    public abstract void AttachedObject();
 
-
+    public virtual void DebugPiercing()
+    {
+        if (isPiercing == true)
+        {
+            Console.WriteLine("This Projectile has Piercing");
+        }
+        else
+        {
+            Console.WriteLine("This Projectile does not have Piercing");
+        }
+    }
 
 }

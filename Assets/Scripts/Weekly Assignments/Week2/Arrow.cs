@@ -3,33 +3,33 @@ using UnityEngine;
 
 public class Arrow : ProjectileBase
 {
-    public int damage = 2;
-    public Rigidbody rb;
-    private int speed = 5;
-    protected int range = 7;
-    private string name;
-
-    protected override void ProjectileName()
+    void Start()
     {
-        string name = "Arrow";
+        damage = 5;
+        SetSpeed(4);
+        range = 8;
+        lifetime = 6;
+        isPiercing = false;        
     }
 
-    public override void ProjectileUsed()
+    void ProjectileLifeCycle()
     {
-        Console.WriteLine("Player used", name, "for", damage);
+        CallDestroyProjectile();
     }
 
-    public void Update()
+    public void DebugStats()
     {
-        if (range >= 0)
-        {
-            ProjectileForce();
-            DealDamage();
-            DamageDealt();
-        }
+        DebugDamage();
+        DebugSpeed();
     }
 
-
-
+    public override void AttachedObject()
+    {
+        Console.WriteLine("This is attached to a Arrow");
+    }
+    public override void DebugPiercing()
+    {
+        Console.WriteLine("This Arrow does not have Piercing");
+    }
 
 }
