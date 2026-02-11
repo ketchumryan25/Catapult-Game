@@ -1,26 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class SimpleEvents : MonoBehaviour
 {
-    [SerializeField] private GameObject myApple;
-    [SerializeField] private GameObject myOrange;
-    [SerializeField] private GameObject myGrape;
+    [SerializeField] private UnityEvent ToggleState;
+    [SerializeField] private Button myButton;
 
-    public void ToggleApple()
+    public void Start()
     {
-        myApple.SetActive(!myApple.activeSelf);
+        if (myButton != null)
+        {
+            myButton.onClick.AddListener(InvokeUnityEvent);
+        }
     }
 
-    public void ToggleOrange()
+    public void InvokeUnityEvent()
     {
-        myOrange.SetActive(!myOrange.activeSelf);
-    }
-
-    public void ToggleGrape()
-    {
-        myGrape.SetActive(!myGrape.activeSelf);
+        ToggleState.Invoke();
     }
 
 }
