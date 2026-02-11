@@ -2,49 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class IntermediateEvents : MonoBehaviour
 {
-    [SerializeField] private Slider mySlider;
-    [SerializeField] private GameObject myKiwi;
-    [SerializeField] private GameObject myBanana;
-    [SerializeField] private GameObject myCherry;
-    [SerializeField] private float indexFruit;
-    [SerializeField] private float indexKiwi;
-    [SerializeField] private float indexBanana;
-    [SerializeField] private float indexCherry;
+    [SerializeField] private UnityEvent<float> ParticleEvent;
+    [SerializeField] private float maxHeight;
+    [SerializeField] private float minHeight;
+    [SerializeField] private float speed;
+    [SerializeField] private bool movingUp;
 
-    public void SliderValue()
+    public void Update()
     {
-        indexFruit = mySlider.value; 
+        if (movingUp)
+        {
+            MoveObjectUp(speed);
+        }
+        else
+        {
+            MoveObjectDown(speed);
+        }
+    }
+
+    public void MoveObjectUp(float moveSpeed)
+    {
+        float deltaY = moveSpeed * Time.deltaTime;
+        transform.localPosition += new Vector3(0, deltaY, 0);
+
+        if (transform.localPosition.y >= maxHeight)
+        {
+            Vector3 maxPosition = new Vector3(transform.localPosition.x, maxHeight, transform.localPosition.z);
+            transform.localPosition = maxPosition;
+            float height = maxPosition.y;
+            ParticleEvent.Invoke(height);
+            movingUp = false;
+        }
     }
     
-    public void ToggleFruit(float indexFruit)
+    public void MoveObjectDown(float moveSpeed)
     {
-        if (indexFruit == indexCherry)
-            {
-                myCherry.SetActive(true);
-                myKiwi.SetActive(false);
-                myBanana.SetActive(false);
-            }
-        else if (indexFruit == indexKiwi)
-            {
-                myKiwi.SetActive(true);
-                myBanana.SetActive(false);
-                myCherry.SetActive(false);
-            }
-        else if (indexFruit == indexBanana)
-            {
-                myBanana.SetActive(true);
-                myCherry.SetActive(false);
-                myKiwi.SetActive(false);
-            }
-        else if (indexFruit != indexCherry && indexFruit != indexKiwi && indexFruit != indexBanana)
-            {
-                myBanana.SetActive(false);
-                myCherry.SetActive(false);
-                myKiwi.SetActive(false);
-            }
+        float deltaY = moveSpeed * Time.deltaTime;
+        transform.localPosition += new Vector3(0, -deltaY, 0);
+
+        if (transform.localPosition.y <= minHeight)
+        {
+            Vector3 minPosition = new Vector3(transform.localPosition.x, minHeight, transform.localPosition.z);
+            transform.localPosition = minPosition;
+            float height = minPosition.y;
+            ParticleEvent.Invoke(height);
+            movingUp = true;
+        }
     }
 
 }
