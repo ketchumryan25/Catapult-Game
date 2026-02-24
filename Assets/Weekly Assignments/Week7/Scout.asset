@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe18ad17902a474c80b45756f1da88b, type: 3}
+  m_Name: Scout
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4554920184209721520, guid: 97b2b037ca149f24cae11b0490753dc3, type: 3}
+  enemyType: 1
+  particleEffect: {fileID: 7604880835373712348, guid: c75dbcf29a4cf1f4695fc0f6fa18d8cf, type: 3}
